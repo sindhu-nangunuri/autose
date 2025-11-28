@@ -56,11 +56,10 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-validator</artifactId>
     </dependency>
-    <!-- Google AI SDK for Gemini -->
+    <!-- HTTP Client for API calls -->
     <dependency>
-      <groupId>com.google.ai</groupId>
-      <artifactId>generativelanguage</artifactId>
-      <version>0.3.0</version>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-client-reactive-jackson</artifactId>
     </dependency>
     <!-- Google Auth Library -->
     <dependency>
@@ -97,6 +96,11 @@
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5-mockito</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

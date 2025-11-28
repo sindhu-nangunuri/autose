@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.logging.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -132,21 +133,22 @@ public class DataQualityResource {
     @APIResponse(responseCode = "200", description = "Metrics retrieved successfully")
     public Response getAvailableMetrics() {
         try {
+            Map<String, String> descriptions = new HashMap<>();
+            descriptions.put("COMPLETENESS", "Measures the percentage of non-null values");
+            descriptions.put("UNIQUENESS", "Measures the percentage of unique values");
+            descriptions.put("CONSISTENCY", "Measures data consistency across related fields");
+            descriptions.put("VALIDITY", "Measures adherence to defined formats and rules");
+            descriptions.put("ACCURACY", "Measures correctness of data values");
+            descriptions.put("INTEGRITY", "Measures referential and domain integrity");
+            descriptions.put("TIMELINESS", "Measures data freshness and currency");
+            descriptions.put("CONFORMITY", "Measures adherence to data standards");
+            descriptions.put("RANGE", "Measures values within expected ranges");
+            descriptions.put("BLANKS", "Measures presence of blank/empty values");
+            descriptions.put("OUTLIERS", "Measures presence of statistical outliers");
+            
             Map<String, Object> metrics = Map.of(
                 "metrics", DataQualityMetric.values(),
-                "descriptions", Map.of(
-                    "COMPLETENESS", "Measures the percentage of non-null values",
-                    "UNIQUENESS", "Measures the percentage of unique values",
-                    "CONSISTENCY", "Measures data consistency across related fields",
-                    "VALIDITY", "Measures adherence to defined formats and rules",
-                    "ACCURACY", "Measures correctness of data values",
-                    "INTEGRITY", "Measures referential and domain integrity",
-                    "TIMELINESS", "Measures data freshness and currency",
-                    "CONFORMITY", "Measures adherence to data standards",
-                    "RANGE", "Measures values within expected ranges",
-                    "BLANKS", "Measures presence of blank/empty values",
-                    "OUTLIERS", "Measures presence of statistical outliers"
-                )
+                "descriptions", descriptions
             );
             
             return Response.ok(metrics).build();
