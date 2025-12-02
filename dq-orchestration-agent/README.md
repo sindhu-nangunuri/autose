@@ -2,6 +2,8 @@
 
 A multi-agent data quality analysis and rectification system built with Quarkus, Java 17, and Google Gemini LLM.
 
+Welcome to the Data Quality Orchestration Agent! This powerful tool provides a comprehensive solution for analyzing and improving the quality of your datasets. Our multi-agent architecture evaluates data across numerous quality dimensions, offering AI-powered insights and automated rectification capabilities.
+
 ## Overview
 
 This application provides comprehensive data quality analysis and automated rectification capabilities through a multi-agent architecture. It evaluates datasets across multiple quality dimensions and provides AI-powered insights and recommendations.
@@ -48,11 +50,9 @@ This application provides comprehensive data quality analysis and automated rect
 - Java 17 or higher
 - Maven 3.8+
 - Google Gemini API key
-
 ### Configuration
 
 Set your Gemini API key in `application.yml`:
-
 ```yaml
 data-quality:
   gemini:
@@ -60,13 +60,37 @@ data-quality:
 ```
 
 Or set the environment variable:
-```bash
+```
 export GEMINI_API_KEY=your-actual-api-key
+```
+### Quality Thresholds
+Configure quality thresholds in `application.yml`:
+
+```yaml
+data-quality:
+  thresholds:
+    completeness: 0.95
+    uniqueness: 0.98
+    validity: 0.95
+    # ... other thresholds
+```
+
+### Scoring Weights
+Adjust metric weights for overall scoring:
+
+```yaml
+data-quality:
+  scoring:
+    weights:
+      completeness: 0.15
+      uniqueness: 0.15
+      validity: 0.15
+      # ... other weights
 ```
 
 ### Running the Application
 
-```bash
+```
 # Development mode
 ./mvnw compile quarkus:dev
 
@@ -96,7 +120,7 @@ Access the Swagger UI at: `http://localhost:8080/swagger-ui`
 ### Example Usage
 
 #### Analyze Dataset
-```bash
+```
 curl -X POST http://localhost:8080/api/data-quality/analyze \
   -H "Content-Type: application/json" \
   -d '{
@@ -111,35 +135,8 @@ curl -X POST http://localhost:8080/api/data-quality/analyze \
 ```
 
 #### Get Sample Dataset
-```bash
+```
 curl -X POST http://localhost:8080/api/data-quality/sample-dataset
-```
-
-## Configuration
-
-### Quality Thresholds
-Configure quality thresholds in `application.yml`:
-
-```yaml
-data-quality:
-  thresholds:
-    completeness: 0.95
-    uniqueness: 0.98
-    validity: 0.95
-    # ... other thresholds
-```
-
-### Scoring Weights
-Adjust metric weights for overall scoring:
-
-```yaml
-data-quality:
-  scoring:
-    weights:
-      completeness: 0.15
-      uniqueness: 0.15
-      validity: 0.15
-      # ... other weights
 ```
 
 ## Architecture
@@ -167,7 +164,7 @@ Each data quality metric is handled by a specialized agent that implements:
 4. Inject into `DataQualityOrchestrator`
 
 ### Testing
-```bash
+```
 # Run tests
 ./mvnw test
 
@@ -178,7 +175,7 @@ Each data quality metric is handled by a specialized agent that implements:
 ## Deployment
 
 ### Docker
-```bash
+```
 # Build native image
 ./mvnw package -Pnative -Dquarkus.native.container-build=true
 
