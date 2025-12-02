@@ -41,11 +41,11 @@ public class DataQualityResource {
                 content = @Content(schema = @Schema(implementation = DataQualityReport.class)))
     @APIResponse(responseCode = "400", description = "Invalid dataset provided")
     @APIResponse(responseCode = "500", description = "Internal server error")
-    public Response analyzeDataset(@Valid Dataset dataset) {
+    public Response analyzeDataset(Dataset dataset) {
         try {
-            logger.info("Received data quality analysis request for dataset: " + dataset.getName());
+            logger.info("Received data quality analysis request for dataset: " + (dataset != null ? dataset.getName() : "null"));
             
-            if (dataset.getData() == null || dataset.getData().isEmpty()) {
+            if (dataset == null || dataset.getData() == null || dataset.getData().isEmpty()) {
                 return Response.status(Response.Status.BAD_REQUEST)
                     .entity(Map.of("error", "Dataset must contain data"))
                     .build();
@@ -68,9 +68,15 @@ public class DataQualityResource {
     @Operation(summary = "Calculate data quality score for dataset")
     @APIResponse(responseCode = "200", description = "Score calculated successfully",
                 content = @Content(schema = @Schema(implementation = DataQualityScore.class)))
-    public Response calculateScore(@Valid Dataset dataset) {
+    public Response calculateScore(Dataset dataset) {
         try {
-            logger.info("Calculating data quality score for dataset: " + dataset.getName());
+            logger.info("Calculating data quality score for dataset: " + (dataset != null ? dataset.getName() : "null"));
+            
+            if (dataset == null || dataset.getData() == null) {
+                return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(Map.of("error", "Dataset is required"))
+                    .build();
+            }
             
             DataQualityScore score = orchestrator.calculateDataQualityScore(dataset);
             
@@ -88,9 +94,15 @@ public class DataQualityResource {
     @Path("/analyze-only")
     @Operation(summary = "Analyze dataset without rectification")
     @APIResponse(responseCode = "200", description = "Analysis completed successfully")
-    public Response analyzeOnly(@Valid Dataset dataset) {
+    public Response analyzeOnly(Dataset dataset) {
         try {
-            logger.info("Analyzing dataset without rectification: " + dataset.getName());
+            logger.info("Analyzing dataset without rectification: " + (dataset != null ? dataset.getName() : "null"));
+            
+            if (dataset == null) {
+                return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(Map.of("error", "Dataset is required"))
+                    .build();
+            }
             
             List<DataQualityResult> results = orchestrator.analyzeDataQuality(dataset);
             
@@ -193,20 +205,69 @@ public class DataQualityResource {
     private Dataset createSampleDataset() {
         List<String> columns = List.of("id", "name", "email", "age", "salary", "department");
         
-        List<Map<String, Object>> data = List.of(
-            Map.of("id", 1, "name", "John Doe", "email", "john.doe@example.com", "age", 30, "salary", 50000, "department", "Engineering"),
-            Map.of("id", 2, "name", "Jane Smith", "email", "jane.smith@example.com", "age", 25, "salary", 45000, "department", "Marketing"),
-            Map.of("id", 3, "name", "", "email", "invalid-email", "age", -5, "salary", 60000, "department", "Engineering"),
-            Map.of("id", 4, "name", "Bob Johnson", "email", "bob.johnson@example.com", "age", 35, "salary", null, "department", "Sales"),
-            Map.of("id", 1, "name", "John Doe", "email", "john.doe@example.com", "age", 30, "salary", 50000, "department", "Engineering"), // Duplicate
-            Map.of("id", 5, "name", "Alice Brown", "email", "alice.brown@example.com", "age", 28, "salary", 1000000, "department", "HR") // Outlier
-        );
+        // Using HashMap instead of Map.of() to allow null values
+        List<Map<String, Object>> data = new java.util.ArrayList<>();
+        
+        Map<String, Object> row1 = new java.util.HashMap<>();
+        row1.put("id", 1);
+        row1.put("name", "John Doe");
+        row1.put("email", "john.doe@example.com");
+        row1.put("age", 30);
+        row1.put("salary", 50000);
+        row1.put("department", "Engineering");
+        data.add(row1);
+        
+        Map<String, Object> row2 = new java.util.HashMap<>();
+        row2.put("id", 2);
+        row2.put("name", "Jane Smith");
+        row2.put("email", "jane.smith@example.com");
+        row2.put("age", 25);
+        row2.put("salary", 45000);
+        row2.put("department", "Marketing");
+        data.add(row2);
+        
+        Map<String, Object> row3 = new java.util.HashMap<>();
+        row3.put("id", 3);
+        row3.put("name", "");
+        row3.put("email", "invalid-email");
+        row3.put("age", -5);
+        row3.put("salary", 60000);
+        row3.put("department", "Engineering");
+        data.add(row3);
+        
+        Map<String, Object> row4 = new java.util.HashMap<>();
+        row4.put("id", 4);
+        row4.put("name", "Bob Johnson");
+        row4.put("email", "bob.johnson@example.com");
+        row4.put("age", 35);
+        row4.put("salary", null);
+        row4.put("department", "Sales");
+        data.add(row4);
+        
+        Map<String, Object> row5 = new java.util.HashMap<>();
+        row5.put("id", 1);
+        row5.put("name", "John Doe");
+        row5.put("email", "john.doe@example.com");
+        row5.put("age", 30);
+        row5.put("salary", 50000);
+        row5.put("department", "Engineering");
+        data.add(row5); // Duplicate
+        
+        Map<String, Object> row6 = new java.util.HashMap<>();
+        row6.put("id", 5);
+        row6.put("name", "Alice Brown");
+        row6.put("email", "alice.brown@example.com");
+        row6.put("age", 28);
+        row6.put("salary", 1000000);
+        row6.put("department", "HR");
+        data.add(row6); // Outlier
         
         Dataset dataset = new Dataset(UUID.randomUUID().toString(), "Sample Employee Dataset", columns, data);
-        dataset.setMetadata(Map.of(
-            "description", "Sample dataset with various data quality issues for testing",
-            "source", "Generated for demonstration purposes"
-        ));
+        
+        Map<String, Object> metadata = new java.util.HashMap<>();
+        metadata.put("description", "Sample dataset with various data quality issues for testing");
+        metadata.put("source", "Generated for demonstration purposes");
+        dataset.setMetadata(metadata);
         
         return dataset;
     }

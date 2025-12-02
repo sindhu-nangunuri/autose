@@ -20,7 +20,7 @@ quarkus:
 # Data Quality Configuration
 data-quality:
   gemini:
-    api-key: ${GEMINI_API_KEY:your-gemini-api-key-here}
+    api-key: ${GEMINI_API_KEY:AIzaSyD1xiXLGQqKQq2-qX-RPVi_in98VJ75jno}
     model: gemini-pro
     temperature: 0.1
     max-tokens: 1000

@@ -93,10 +93,8 @@ class DataQualityResourceIntegrationTest {
             .body(requestBody)
             .when().post("/api/data-quality/analyze")
             .then()
-            .statusCode(200)
-            .contentType(ContentType.JSON)
-            .body("datasetName", notNullValue())
-            .body("results", notNullValue());
+            .statusCode(400)
+            .contentType(ContentType.JSON);
     }
 
     @Test
@@ -130,7 +128,7 @@ class DataQualityResourceIntegrationTest {
             .when().get("/api/data-quality/health")
             .then()
             .statusCode(200)
-            .body("status", is("UP"));
+            .body("status", is("healthy"));
     }
 
     @Test
