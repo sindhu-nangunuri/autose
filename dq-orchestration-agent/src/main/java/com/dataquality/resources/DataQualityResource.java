@@ -132,22 +132,42 @@ public class DataQualityResource {
     @APIResponse(responseCode = "200", description = "Metrics retrieved successfully")
     public Response getAvailableMetrics() {
         try {
-            Map<String, Object> metrics = Map.of(
-                "metrics", DataQualityMetric.values(),
-                "descriptions", Map.of(
-                    "COMPLETENESS", "Measures the percentage of non-null values",
-                    "UNIQUENESS", "Measures the percentage of unique values",
-                    "CONSISTENCY", "Measures data consistency across related fields",
-                    "VALIDITY", "Measures adherence to defined formats and rules",
-                    "ACCURACY", "Measures correctness of data values",
-                    "INTEGRITY", "Measures referential and domain integrity",
-                    "TIMELINESS", "Measures data freshness and currency",
-                    "CONFORMITY", "Measures adherence to data standards",
-                    "RANGE", "Measures values within expected ranges",
-                    "BLANKS", "Measures presence of blank/empty values",
-                    "OUTLIERS", "Measures presence of statistical outliers"
-                )
-            );
+            // Map<String, Object> metrics = Map.of(
+            //     "metrics", DataQualityMetric.values(),
+            //     "descriptions", Map.of(
+            //         "COMPLETENESS", "Measures the percentage of non-null values",
+            //         "UNIQUENESS", "Measures the percentage of unique values",
+            //         "CONSISTENCY", "Measures data consistency across related fields",
+            //         "VALIDITY", "Measures adherence to defined formats and rules",
+            //         "ACCURACY", "Measures correctness of data values",
+            //         "INTEGRITY", "Measures referential and domain integrity",
+            //         "TIMELINESS", "Measures data freshness and currency",
+            //         "CONFORMITY", "Measures adherence to data standards",
+            //         "RANGE", "Measures values within expected ranges",
+            //         "BLANKS", "Measures presence of blank/empty values",
+            //         "OUTLIERS", "Measures presence of statistical outliers"
+            //     )
+            // );
+
+            Map<String, String> descriptions = Map.ofEntries(
+    Map.entry("COMPLETENESS", "Measures the percentage of non-null values"),
+    Map.entry("UNIQUENESS", "Measures the percentage of unique values"),
+    Map.entry("CONSISTENCY", "Measures data consistency across related fields"),
+    Map.entry("VALIDITY", "Measures adherence to defined formats and rules"),
+    Map.entry("ACCURACY", "Measures correctness of data values"),
+    Map.entry("INTEGRITY", "Measures referential and domain integrity"),
+    Map.entry("TIMELINESS", "Measures data freshness and currency"),
+    Map.entry("CONFORMITY", "Measures adherence to data standards"),
+    Map.entry("RANGE", "Measures values within expected ranges"),
+    Map.entry("BLANKS", "Measures presence of blank/empty values"),
+    Map.entry("OUTLIERS", "Measures presence of statistical outliers")
+    // … add more entries here
+);
+
+Map<String, Object> metrics = Map.of(
+    "metrics", DataQualityMetric.values(),
+    "descriptions", descriptions
+);
             
             return Response.ok(metrics).build();
             

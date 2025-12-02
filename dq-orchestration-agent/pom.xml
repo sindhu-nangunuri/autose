@@ -16,6 +16,7 @@
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0</surefire-plugin.version>
   </properties>
+  
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -56,12 +57,18 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-validator</artifactId>
     </dependency>
-    <!-- Google AI SDK for Gemini -->
+    <!-- https://mvnrepository.com/artifact/com.google.adk/google-adk -->
     <dependency>
+      <groupId>com.google.adk</groupId>
+      <artifactId>google-adk</artifactId>
+      <version>0.4.0</version>
+    </dependency>
+    <!-- Google AI SDK for Gemini -->
+    <!-- <dependency>
       <groupId>com.google.ai</groupId>
       <artifactId>generativelanguage</artifactId>
       <version>0.3.0</version>
-    </dependency>
+    </dependency> -->
     <!-- Google Auth Library -->
     <dependency>
       <groupId>com.google.auth</groupId>
@@ -99,6 +106,17 @@
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.1</version>
+</dependency>
+
+<dependency>
+    <groupId>org.glassfish.jaxb</groupId>
+    <artifactId>jaxb-runtime</artifactId>
+    <version>2.3.1</version>
+</dependency>
   </dependencies>
   <build>
     <plugins>

@@ -17,6 +17,7 @@ public class DataQualityResourceTest {
     @Test
     public void testHealthEndpoint() {
         given()
+        .contentType(ContentType.JSON)
           .when().get("/api/data-quality/health")
           .then()
              .statusCode(200)
@@ -26,6 +27,7 @@ public class DataQualityResourceTest {
     @Test
     public void testGetAvailableMetrics() {
         given()
+        .contentType(ContentType.JSON)
           .when().get("/api/data-quality/metrics")
           .then()
              .statusCode(200)
@@ -36,6 +38,7 @@ public class DataQualityResourceTest {
     @Test
     public void testGenerateSampleDataset() {
         given()
+        .contentType(ContentType.JSON)
           .when().post("/api/data-quality/sample-dataset")
           .then()
              .statusCode(200)
