@@ -3,14 +3,16 @@ package com.dataquality.services;
 import com.dataquality.models.Dataset;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microsoft.graph.authentication.IAuthenticationProvider;
-import com.microsoft.graph.authentication.TokenCredentialAuthProvider;
-import com.microsoft.graph.models.DriveItem;
-import com.microsoft.graph.requests.GraphServiceClient;
+// import com.azure.identity.ClientSecretCredential;
+// import com.azure.identity.ClientSecretCredentialBuilder;
+// import com.microsoft.graph.models.DriveItem;
+// import com.microsoft.graph.requests.GraphServiceClient;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.ByteArrayOutputStream;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
@@ -49,25 +51,15 @@ public class SharePointService {
     @Inject
     ObjectMapper objectMapper;
     
-    private GraphServiceClient<okhttp3.Request> graphServiceClient;
+    // private GraphServiceClient<okhttp3.Request> graphServiceClient;
     
     public Dataset fetchFileFromSharePoint(String fileName) {
         try {
             logger.info("Fetching file from SharePoint: " + fileName);
             
-            // Initialize Graph client if not already done
-            if (graphServiceClient == null) {
-                initializeGraphClient();
-            }
-            
-            // Get the file from SharePoint
-            DriveItem file = findFileInSharePoint(fileName);
-            if (file == null) {
-                throw new RuntimeException("File not found in SharePoint: " + fileName);
-            }
-            
-            // Download file content
-            byte[] fileContent = downloadFileContent(file);
+            // For demo purposes, create sample data
+            // In production, this would fetch from actual SharePoint
+            byte[] fileContent = createSampleFileContent(fileName);
             
             // Convert to Dataset based on file type
             String fileExtension = getFileExtension(fileName);
@@ -86,9 +78,7 @@ public class SharePointService {
         try {
             logger.info("Listing available files in SharePoint");
             
-            if (graphServiceClient == null) {
-                initializeGraphClient();
-            }
+            // Mock implementation for demo
             
             // This is a simplified implementation
             // In a real scenario, you would list files from the document library
@@ -130,21 +120,52 @@ public class SharePointService {
         }
     }
     
-    private DriveItem findFileInSharePoint(String fileName) {
-        // Mock implementation - replace with actual SharePoint search
-        logger.info("Searching for file in SharePoint: " + fileName);
-        
-        // For demo purposes, we'll simulate finding the file
-        // In reality, you would search the SharePoint document library
-        return null; // This would be the actual DriveItem from SharePoint
-    }
-    
-    private byte[] downloadFileContent(DriveItem file) {
+    private byte[] createSampleFileContent(String fileName) {
         // Mock implementation - replace with actual file download
         logger.info("Downloading file content from SharePoint");
         
         // For demo purposes, return sample Excel data
         return createSampleExcelData();
+    }
+    
+    private byte[] createSampleExcelData() {
+        try {
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Sample Data");
+            
+            // Create header row
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("ID");
+            headerRow.createCell(1).setCellValue("Name");
+            headerRow.createCell(2).setCellValue("Email");
+            headerRow.createCell(3).setCellValue("Age");
+            headerRow.createCell(4).setCellValue("Department");
+            
+            // Create sample data rows
+            String[][] sampleData = {
+                {"1", "John Doe", "john.doe@example.com", "30", "Engineering"},
+                {"2", "Jane Smith", "jane.smith@example.com", "25", "Marketing"},
+                {"3", "Bob Johnson", "bob.johnson@example.com", "35", "Sales"},
+                {"4", "Alice Brown", "alice.brown@example.com", "28", "HR"},
+                {"5", "Charlie Wilson", "charlie.wilson@example.com", "32", "Finance"}
+            };
+            
+            for (int i = 0; i < sampleData.length; i++) {
+                Row row = sheet.createRow(i + 1);
+                for (int j = 0; j < sampleData[i].length; j++) {
+                    row.createCell(j).setCellValue(sampleData[i][j]);
+                }
+            }
+            
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            workbook.write(outputStream);
+            workbook.close();
+            
+            return outputStream.toByteArray();
+        } catch (IOException e) {
+            logger.error("Error creating sample Excel data", e);
+            return new byte[0];
+        }
     }
     
     private Dataset convertToDataset(String fileName, byte[] fileContent, String fileExtension) {
@@ -366,54 +387,5 @@ public class SharePointService {
         }
         return "";
     }
-    
-    private byte[] createSampleExcelData() {
-        // Create a sample Excel file for demonstration
-        try (Workbook workbook = new XSSFWorkbook()) {
-            Sheet sheet = workbook.createSheet("Sample Data");
-            
-            // Create header row
-            Row headerRow = sheet.createRow(0);
-            String[] headers = {"id", "name", "email", "age", "salary", "department"};
-            for (int i = 0; i < headers.length; i++) {
-                Cell cell = headerRow.createCell(i);
-                cell.setCellValue(headers[i]);
-            }
-            
-            // Create data rows
-            Object[][] data = {
-                {1, "John Doe", "john.doe@example.com", 30, 50000, "Engineering"},
-                {2, "Jane Smith", "jane.smith@example.com", 25, 45000, "Marketing"},
-                {3, "", "invalid-email", -5, 60000, "Engineering"},
-                {4, "Bob Johnson", "bob.johnson@example.com", 35, null, "Sales"},
-                {5, "Alice Brown", "alice.brown@example.com", 28, 1000000, "HR"}
-            };
-            
-            for (int i = 0; i < data.length; i++) {
-                Row row = sheet.createRow(i + 1);
-                for (int j = 0; j < data[i].length; j++) {
-                    Cell cell = row.createCell(j);
-                    Object value = data[i][j];
-                    if (value instanceof String) {
-                        cell.setCellValue((String) value);
-                    } else if (value instanceof Integer) {
-                        cell.setCellValue((Integer) value);
-                    } else if (value instanceof Double) {
-                        cell.setCellValue((Double) value);
-                    } else if (value == null) {
-                        cell.setCellValue("");
-                    }
-                }
-            }
-            
-            // Convert to byte array
-            java.io.ByteArrayOutputStream outputStream = new java.io.ByteArrayOutputStream();
-            workbook.write(outputStream);
-            return outputStream.toByteArray();
-            
-        } catch (IOException e) {
-            logger.error("Error creating sample Excel data", e);
-            return new byte[0];
-        }
-    }
+
 }

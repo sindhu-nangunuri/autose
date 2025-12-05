@@ -7,7 +7,8 @@
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <compiler-plugin.version>3.11.0</compiler-plugin.version>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
@@ -118,17 +119,17 @@
     <version>2.3.1</version>
 </dependency>
 
-    <!-- SharePoint and Office 365 integration -->
-    <dependency>
+    <!-- SharePoint and Office 365 integration (commented out for demo) -->
+    <!-- <dependency>
       <groupId>com.microsoft.graph</groupId>
       <artifactId>microsoft-graph</artifactId>
       <version>5.74.0</version>
     </dependency>
     <dependency>
-      <groupId>com.microsoft.graph</groupId>
-      <artifactId>microsoft-graph-auth</artifactId>
-      <version>0.4.0</version>
-    </dependency>
+      <groupId>com.azure</groupId>
+      <artifactId>azure-identity</artifactId>
+      <version>1.11.1</version>
+    </dependency> -->
     
     <!-- Apache POI for Excel file processing -->
     <dependency>
