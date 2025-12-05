@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.logging.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -76,17 +77,18 @@ public class SharePointResource {
         } catch (RuntimeException e) {
             logger.error("Error fetching file from SharePoint: " + fileName, e);
             
-            if (e.getMessage().contains("not found")) {
+            String errorMessage = e.getMessage();
+            if (errorMessage != null && errorMessage.contains("not found")) {
                 return Response.status(Response.Status.NOT_FOUND)
                     .entity(Map.of("error", "File not found: " + fileName))
                     .build();
-            } else if (e.getMessage().contains("Unsupported")) {
+            } else if (errorMessage != null && errorMessage.contains("Unsupported")) {
                 return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(Map.of("error", e.getMessage()))
+                    .entity(Map.of("error", errorMessage))
                     .build();
             } else {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(Map.of("error", "Failed to process file: " + e.getMessage()))
+                    .entity(Map.of("error", "Failed to process file: " + (errorMessage != null ? errorMessage : e.getClass().getSimpleName())))
                     .build();
             }
         }
@@ -111,11 +113,17 @@ public class SharePointResource {
             DataQualityReport report = orchestrator.processDataset(dataset);
             
             // Add SharePoint-specific metadata to the report
-            if (report.getMetadata() == null) {
-                report.setMetadata(Map.of());
+            Map<String, Object> metadata = report.getMetadata();
+            if (metadata == null) {
+                metadata = new HashMap<>();
+                report.setMetadata(metadata);
+            } else {
+                // Create a mutable copy if the existing metadata is immutable
+                metadata = new HashMap<>(metadata);
+                report.setMetadata(metadata);
             }
-            report.getMetadata().put("sourceType", "SharePoint");
-            report.getMetadata().put("originalFileName", fileName);
+            metadata.put("sourceType", "SharePoint");
+            metadata.put("originalFileName", fileName);
             
             logger.info("Successfully analyzed SharePoint file: " + fileName);
             
@@ -124,17 +132,18 @@ public class SharePointResource {
         } catch (RuntimeException e) {
             logger.error("Error analyzing SharePoint file: " + fileName, e);
             
-            if (e.getMessage().contains("not found")) {
+            String errorMessage = e.getMessage();
+            if (errorMessage != null && errorMessage.contains("not found")) {
                 return Response.status(Response.Status.NOT_FOUND)
                     .entity(Map.of("error", "File not found: " + fileName))
                     .build();
-            } else if (e.getMessage().contains("Unsupported")) {
+            } else if (errorMessage != null && errorMessage.contains("Unsupported")) {
                 return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(Map.of("error", e.getMessage()))
+                    .entity(Map.of("error", errorMessage))
                     .build();
             } else {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(Map.of("error", "Analysis failed: " + e.getMessage()))
+                    .entity(Map.of("error", "Analysis failed: " + (errorMessage != null ? errorMessage : e.getClass().getSimpleName())))
                     .build();
             }
         }
@@ -168,13 +177,14 @@ public class SharePointResource {
         } catch (RuntimeException e) {
             logger.error("Error analyzing SharePoint file: " + fileName, e);
             
-            if (e.getMessage().contains("not found")) {
+            String errorMessage = e.getMessage();
+            if (errorMessage != null && errorMessage.contains("not found")) {
                 return Response.status(Response.Status.NOT_FOUND)
                     .entity(Map.of("error", "File not found: " + fileName))
                     .build();
             } else {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(Map.of("error", "Analysis failed: " + e.getMessage()))
+                    .entity(Map.of("error", "Analysis failed: " + (errorMessage != null ? errorMessage : e.getClass().getSimpleName())))
                     .build();
             }
         }
