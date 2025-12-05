@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Container,
@@ -27,20 +27,20 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  TextField,
 } from '@mui/material';
 import {
   ExpandMore as ExpandMoreIcon,
   CheckCircle as CheckCircleIcon,
   Error as ErrorIcon,
-  Warning as WarningIcon,
-  Info as InfoIcon,
-  CloudUpload as CloudUploadIcon,
   Assessment as AssessmentIcon,
   DataObject as DataObjectIcon,
+  Chat as ChatIcon,
+  Send as SendIcon,
 } from '@mui/icons-material';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { apiClient } from '../services/api';
-import { Dataset, DataQualityReport, DataQualityResult, DataQualityScore } from '../types';
+import { Dataset, DataQualityReport, DataQualityScore } from '../types';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -70,54 +70,34 @@ const DataQualityAnalysis: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [dataset, setDataset] = useState<Dataset | null>(null);
   const [report, setReport] = useState<DataQualityReport | null>(null);
-  const [sharePointFiles, setSharePointFiles] = useState<string[]>([]);
   const [selectedFile, setSelectedFile] = useState<string>('');
+  const [userPrompt, setUserPrompt] = useState<string>('');
 
-  useEffect(() => {
-    loadSharePointFiles();
-  }, []);
-
-  const loadSharePointFiles = async () => {
-    try {
-      const response = await apiClient.listSharePointFiles();
-      setSharePointFiles(response.files);
-    } catch (err) {
-      console.error('Error loading SharePoint files:', err);
-      setError('Failed to load SharePoint files');
+  const handleSubmitPrompt = async () => {
+    if (!userPrompt.trim()) {
+      setError('Please enter a prompt before submitting');
+      return;
     }
-  };
 
-  const handleAnalyzeSharePointFile = async (fileName: string) => {
     setLoading(true);
     setError(null);
     try {
-      const analysisReport = await apiClient.analyzeSharePointFile(fileName);
-      setReport(analysisReport);
-      setSelectedFile(fileName);
-      setTabValue(1); // Switch to results tab
-    } catch (err) {
-      console.error('Error analyzing SharePoint file:', err);
-      setError(`Failed to analyze file: ${fileName}`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGenerateSampleData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
+      // For now, we'll process the prompt as if it's generating sample data
+      // In a real implementation, this would send the prompt to an AI service
+      console.log('Processing user prompt:', userPrompt);
+      
+      // Placeholder: Generate sample data based on prompt
       const sampleDataset = await apiClient.generateSampleDataset();
       setDataset(sampleDataset);
       
-      // Analyze the sample dataset
+      // Analyze the dataset
       const analysisReport = await apiClient.analyzeDataset(sampleDataset);
       setReport(analysisReport);
-      setSelectedFile('Sample Dataset');
+      setSelectedFile(`AI Analysis: ${userPrompt.substring(0, 50)}...`);
       setTabValue(1); // Switch to results tab
     } catch (err) {
-      console.error('Error generating sample data:', err);
-      setError('Failed to generate sample data: ' + (err as Error).message);
+      console.error('Error processing prompt:', err);
+      setError('Failed to process prompt: ' + (err as Error).message);
     } finally {
       setLoading(false);
     }
@@ -271,7 +251,7 @@ const DataQualityAnalysis: React.FC = () => {
 
         <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
           <Tabs value={tabValue} onChange={(_, newValue) => setTabValue(newValue)}>
-            <Tab label="Data Sources" icon={<CloudUploadIcon />} />
+            <Tab label="AI Prompt Input" icon={<ChatIcon />} />
             <Tab label="Analysis Results" icon={<AssessmentIcon />} disabled={!report} />
             <Tab label="Dataset Details" icon={<DataObjectIcon />} disabled={!dataset && !report} />
           </Tabs>
@@ -279,59 +259,34 @@ const DataQualityAnalysis: React.FC = () => {
 
         <TabPanel value={tabValue} index={0}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={8} mx="auto">
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>
-                    SharePoint Files
+                    AI Data Analysis Prompt
                   </Typography>
                   <Typography variant="body2" color="text.secondary" gutterBottom>
-                    Select a file from SharePoint to analyze
+                    Enter your data analysis request or question
                   </Typography>
-                  {sharePointFiles.length > 0 ? (
-                    <List>
-                      {sharePointFiles.map((file, index) => (
-                        <ListItem key={index}>
-                          <ListItemIcon>
-                            <DataObjectIcon />
-                          </ListItemIcon>
-                          <ListItemText primary={file} />
-                          <Button
-                            variant="outlined"
-                            size="small"
-                            onClick={() => handleAnalyzeSharePointFile(file)}
-                            disabled={loading}
-                          >
-                            Analyze
-                          </Button>
-                        </ListItem>
-                      ))}
-                    </List>
-                  ) : (
-                    <Typography variant="body2" color="text.secondary">
-                      No files available
-                    </Typography>
-                  )}
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    Sample Data
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    Generate and analyze sample data for testing
-                  </Typography>
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                    placeholder="e.g., Analyze customer data for quality issues, Generate a report on data completeness, Check for duplicate records..."
+                    value={userPrompt}
+                    onChange={(e) => setUserPrompt(e.target.value)}
+                    disabled={loading}
+                    sx={{ mb: 2 }}
+                  />
                   <Button
                     variant="contained"
-                    onClick={handleGenerateSampleData}
-                    disabled={loading}
-                    startIcon={loading ? <CircularProgress size={20} /> : <AssessmentIcon />}
+                    onClick={handleSubmitPrompt}
+                    disabled={loading || !userPrompt.trim()}
+                    startIcon={loading ? <CircularProgress size={20} /> : <SendIcon />}
+                    fullWidth
                   >
-                    {loading ? 'Generating...' : 'Generate & Analyze Sample Data'}
+                    {loading ? 'Processing...' : 'Submit Prompt'}
                   </Button>
                 </CardContent>
               </Card>

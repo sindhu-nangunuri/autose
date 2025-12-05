@@ -7,7 +7,6 @@ import {
   DataQualityReport,
   DataQualityScore,
   DataQualityResult,
-  SharePointFile,
   SharePointConfig,
   DataQualityMetric
 } from '../types';
