@@ -79,6 +79,18 @@ public class GeminiService {
         }
     }
     
+    public String processUserPrompt(String userPrompt) {
+        logger.info("Processing user prompt using Gemini: " + userPrompt.substring(0, Math.min(userPrompt.length(), 100)) + "...");
+        
+        try {
+            String enhancedPrompt = buildUserPrompt(userPrompt);
+            return callGeminiAPI(enhancedPrompt);
+        } catch (Exception e) {
+            logger.error("Failed to process user prompt using Gemini", e);
+            return "I apologize, but I'm unable to process your request at this time. Please try again later or contact support if the issue persists.";
+        }
+    }
+    
     private String callGeminiAPI(String prompt) throws Exception {
         String url = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
         
@@ -194,6 +206,18 @@ public class GeminiService {
         }
         
         prompt.append("\nProvide insights on data quality patterns, potential root causes of issues, and long-term improvement strategies.");
+        
+        return prompt.toString();
+    }
+    
+    private String buildUserPrompt(String userPrompt) {
+        StringBuilder prompt = new StringBuilder();
+        prompt.append("You are a Data Quality Expert AI Assistant. Your role is to help users with data quality analysis, recommendations, and best practices.\n\n");
+        prompt.append("Context: You are part of a Data Quality Orchestration system that helps organizations analyze and improve their data quality.\n\n");
+        prompt.append("User Request: ").append(userPrompt).append("\n\n");
+        prompt.append("Please provide a helpful, accurate, and actionable response. If the request is about data analysis, provide specific steps or recommendations. ");
+        prompt.append("If it's about data quality metrics, explain them clearly. If it's about best practices, provide practical advice.\n\n");
+        prompt.append("Keep your response concise but comprehensive, and format it in a user-friendly way.");
         
         return prompt.toString();
     }

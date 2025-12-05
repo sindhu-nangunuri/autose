@@ -202,6 +202,40 @@ public class DataQualityResource {
         }
     }
     
+    @POST
+    @Path("/prompt")
+    @Operation(summary = "Process user prompt using AI assistant")
+    @APIResponse(responseCode = "200", description = "Prompt processed successfully")
+    @APIResponse(responseCode = "400", description = "Invalid prompt provided")
+    @APIResponse(responseCode = "500", description = "Internal server error")
+    public Response processPrompt(Map<String, String> request) {
+        try {
+            String prompt = request.get("prompt");
+            
+            if (prompt == null || prompt.trim().isEmpty()) {
+                return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(Map.of("error", "Prompt is required and cannot be empty"))
+                    .build();
+            }
+            
+            logger.info("Processing user prompt: " + prompt.substring(0, Math.min(prompt.length(), 100)) + "...");
+            
+            String response = geminiService.processUserPrompt(prompt.trim());
+            
+            return Response.ok(Map.of(
+                "response", response,
+                "timestamp", System.currentTimeMillis(),
+                "status", "success"
+            )).build();
+            
+        } catch (Exception e) {
+            logger.error("Error processing user prompt", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                .entity(Map.of("error", "Failed to process prompt: " + e.getMessage()))
+                .build();
+        }
+    }
+    
     private Dataset createSampleDataset() {
         List<String> columns = List.of("id", "name", "email", "age", "salary", "department");
         
