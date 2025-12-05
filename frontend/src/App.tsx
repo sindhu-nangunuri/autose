@@ -9,6 +9,7 @@ import { DashboardPage } from './pages/dashboard/DashboardPage';
 import { OrchestrationPage } from './pages/orchestration/OrchestrationPage';
 import { MonitoringPage } from './pages/monitoring/MonitoringPage';
 import { SettingsPage } from './pages/settings/SettingsPage';
+import DataQualityAnalysis from './pages/DataQualityAnalysis';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -33,10 +34,12 @@ function App() {
         <Router>
           <Layout>
             <Routes>
-              <Route path="/" element={<DashboardPage />} />
+              <Route path="/" element={<DataQualityAnalysis />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/orchestration" element={<OrchestrationPage />} />
               <Route path="/monitoring" element={<MonitoringPage />} />
               <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/data-quality" element={<DataQualityAnalysis />} />
             </Routes>
           </Layout>
         </Router>

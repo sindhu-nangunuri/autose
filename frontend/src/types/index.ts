@@ -5,6 +5,68 @@ export interface ApiResponse<T> {
   success: boolean;
 }
 
+// Data Quality Types
+export interface Dataset {
+  id: string;
+  name: string;
+  columns: string[];
+  data: Record<string, any>[];
+  metadata?: Record<string, any>;
+  createdAt: string;
+  rowCount: number;
+  columnCount: number;
+}
+
+export interface DataQualityMetric {
+  name: string;
+  displayName: string;
+}
+
+export interface DataQualityResult {
+  metric: string | DataQualityMetric;
+  score: number;
+  threshold: number;
+  passed: boolean;
+  issues: string[];
+  recommendations: string[];
+  details: Record<string, any>;
+  timestamp: string;
+}
+
+export interface DataQualityScore {
+  overallScore: number;
+  grade: string;
+  metricScores: Record<string, number>;
+}
+
+export interface DataQualityReport {
+  id: string;
+  datasetName: string;
+  preProcessingScore: DataQualityScore;
+  postProcessingScore: DataQualityScore;
+  results: DataQualityResult[];
+  rectificationActions: string[];
+  summary: string;
+  timestamp: string;
+  processingTimeMs: number;
+  metadata?: Record<string, any>;
+}
+
+// SharePoint Types
+export interface SharePointFile {
+  name: string;
+  size: number;
+  lastModified: string;
+  type: string;
+}
+
+export interface SharePointConfig {
+  supportedFormats: string[];
+  maxFileSizeMB: number;
+  documentLibrary: string;
+  status: string;
+}
+
 // Job Types
 export interface Job {
   id: string;

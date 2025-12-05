@@ -1,0 +1,393 @@
+__  ____  __  _____   ___  __ ____  ______ 
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/ 
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \   
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/   
+2025-12-05 05:46:28,451 WARN  [io.qua.config] (main) Unrecognized configuration key "quarkus.log.category."com.dataquality"" was provided; it will be ignored; verify that the dependency extension for this configuration is set or that you did not make a typo
+2025-12-05 05:46:28,978 INFO  [io.qua.sch.run.SimpleScheduler] (main) No scheduled business methods found - Simple scheduler will not be started
+2025-12-05 05:46:29,039 INFO  [io.quarkus] (main) dq-orchestration-agent 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.6.0) started in 0.963s. Listening on: http://0.0.0.0:8081
+2025-12-05 05:46:29,040 INFO  [io.quarkus] (main) Profile prod activated. 
+2025-12-05 05:46:29,040 INFO  [io.quarkus] (main) Installed features: [cdi, config-yaml, hibernate-validator, rest-client-reactive, rest-client-reactive-jackson, resteasy-reactive, resteasy-reactive-jackson, scheduler, smallrye-context-propagation, smallrye-openapi, swagger-ui, vertx]
+2025-12-05 05:46:42,081 INFO  [com.dat.res.SharePointResource] (executor-thread-1) Analyzing SharePoint file: sample-data.xlsx
+2025-12-05 05:46:42,228 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Fetching file from SharePoint: sample-data.xlsx
+2025-12-05 05:46:42,228 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Downloading file content from SharePoint
+ERROR StatusLogger Log4j2 could not find a logging implementation. Please add log4j-core to the classpath. Using SimpleLogger to log to the console...
+2025-12-05 05:46:42,763 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Converting Excel file to dataset: sample-data.xlsx
+2025-12-05 05:46:42,817 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Successfully converted SharePoint file to dataset: sample-data.xlsx
+2025-12-05 05:46:42,955 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Initialized 6 data quality agents
+2025-12-05 05:46:42,955 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Starting data quality processing for dataset: sample-data.xlsx
+2025-12-05 05:46:42,955 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 1: Analyzing initial data quality
+2025-12-05 05:46:42,955 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Analyzing data quality with 6 agents
+2025-12-05 05:46:42,957 INFO  [com.dat.age.CompletenessAgent] (pool-6-thread-1) Analyzing completeness for dataset: sample-data.xlsx
+2025-12-05 05:46:42,958 INFO  [com.dat.age.UniquenessAgent] (pool-6-thread-2) Analyzing uniqueness for dataset: sample-data.xlsx
+2025-12-05 05:46:42,958 INFO  [com.dat.age.ValidityAgent] (pool-6-thread-3) Analyzing validity for dataset: sample-data.xlsx
+2025-12-05 05:46:42,959 INFO  [com.dat.age.OutliersAgent] (pool-6-thread-4) Analyzing outliers for dataset: sample-data.xlsx
+2025-12-05 05:46:42,960 INFO  [com.dat.age.ConsistencyAgent] (pool-6-thread-5) Analyzing consistency for dataset: sample-data.xlsx
+2025-12-05 05:46:42,960 INFO  [com.dat.age.BlanksAgent] (pool-6-thread-6) Analyzing blanks for dataset: sample-data.xlsx
+2025-12-05 05:46:42,977 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculating overall data quality score from 6 results
+2025-12-05 05:46:42,978 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculated overall score: 0.993
+2025-12-05 05:46:42,978 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Initial data quality score: 99.33% (A+)
+2025-12-05 05:46:42,978 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 2: Rectifying data quality issues
+2025-12-05 05:46:42,978 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Rectifying dataset based on analysis results
+2025-12-05 05:46:42,978 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 3: Re-analyzing data quality after rectification
+2025-12-05 05:46:42,979 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Analyzing data quality with 6 agents
+2025-12-05 05:46:42,979 INFO  [com.dat.age.ValidityAgent] (pool-6-thread-1) Analyzing validity for dataset: sample-data.xlsx
+2025-12-05 05:46:42,979 INFO  [com.dat.age.CompletenessAgent] (pool-6-thread-4) Analyzing completeness for dataset: sample-data.xlsx
+2025-12-05 05:46:42,979 INFO  [com.dat.age.UniquenessAgent] (pool-6-thread-5) Analyzing uniqueness for dataset: sample-data.xlsx
+2025-12-05 05:46:42,979 INFO  [com.dat.age.ConsistencyAgent] (pool-6-thread-6) Analyzing consistency for dataset: sample-data.xlsx
+2025-12-05 05:46:42,979 INFO  [com.dat.age.OutliersAgent] (pool-6-thread-1) Analyzing outliers for dataset: sample-data.xlsx
+2025-12-05 05:46:42,979 INFO  [com.dat.age.BlanksAgent] (pool-6-thread-2) Analyzing blanks for dataset: sample-data.xlsx
+2025-12-05 05:46:42,982 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculating overall data quality score from 6 results
+2025-12-05 05:46:42,982 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculated overall score: 0.993
+2025-12-05 05:46:42,982 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Final data quality score: 99.33% (A+)
+2025-12-05 05:46:42,983 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 4: Generating AI-powered summary
+2025-12-05 05:46:42,984 INFO  [com.dat.ser.GeminiService] (executor-thread-1) Generating data quality summary using Gemini for report: 19feb479-c1d6-45df-b328-1b024aee60df
+2025-12-05 05:46:43,265 ERROR [com.dat.ser.GeminiService] (executor-thread-1) Failed to generate summary using Gemini: java.lang.RuntimeException: Gemini API call failed with status: 400
+	at com.dataquality.services.GeminiService.callGeminiAPI(GeminiService.java:109)
+	at com.dataquality.services.GeminiService.generateDataQualitySummary(GeminiService.java:50)
+	at com.dataquality.services.GeminiService_ClientProxy.generateDataQualitySummary(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.processDataset(DataQualityOrchestrator.java:113)
+	at com.dataquality.orchestration.DataQualityOrchestrator_ClientProxy.processDataset(Unknown Source)
+	at com.dataquality.resources.SharePointResource.analyzeSharePointFile(SharePointResource.java:113)
+	at com.dataquality.resources.SharePointResource$quarkusrestinvoker$analyzeSharePointFile_3f98becc924e89172ae0533a5a7b0f403486fbde.invoke(Unknown Source)
+	at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+	at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+	at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+	at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:46:43,266 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Data quality processing completed in 311 ms
+2025-12-05 05:46:43,266 INFO  [com.dat.res.SharePointResource] (executor-thread-1) Successfully analyzed SharePoint file: sample-data.xlsx
+2025-12-05 05:47:35,134 INFO  [com.dat.res.SharePointResource] (executor-thread-1) Listing available files in SharePoint
+2025-12-05 05:47:35,134 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Listing available files in SharePoint
+2025-12-05 05:47:35,137 INFO  [com.dat.res.SharePointResource] (executor-thread-1) Analyzing SharePoint file: sample-data.xlsx
+2025-12-05 05:47:35,138 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Fetching file from SharePoint: sample-data.xlsx
+2025-12-05 05:47:35,138 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Downloading file content from SharePoint
+2025-12-05 05:47:35,160 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Converting Excel file to dataset: sample-data.xlsx
+2025-12-05 05:47:35,177 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Successfully converted SharePoint file to dataset: sample-data.xlsx
+2025-12-05 05:47:35,177 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Starting data quality processing for dataset: sample-data.xlsx
+2025-12-05 05:47:35,177 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 1: Analyzing initial data quality
+2025-12-05 05:47:35,178 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Analyzing data quality with 6 agents
+2025-12-05 05:47:35,178 INFO  [com.dat.age.UniquenessAgent] (pool-6-thread-1) Analyzing uniqueness for dataset: sample-data.xlsx
+2025-12-05 05:47:35,178 INFO  [com.dat.age.OutliersAgent] (pool-6-thread-2) Analyzing outliers for dataset: sample-data.xlsx
+2025-12-05 05:47:35,178 INFO  [com.dat.age.ValidityAgent] (pool-6-thread-5) Analyzing validity for dataset: sample-data.xlsx
+2025-12-05 05:47:35,178 INFO  [com.dat.age.CompletenessAgent] (pool-6-thread-6) Analyzing completeness for dataset: sample-data.xlsx
+2025-12-05 05:47:35,178 INFO  [com.dat.age.BlanksAgent] (pool-6-thread-3) Analyzing blanks for dataset: sample-data.xlsx
+2025-12-05 05:47:35,178 INFO  [com.dat.age.ConsistencyAgent] (pool-6-thread-4) Analyzing consistency for dataset: sample-data.xlsx
+2025-12-05 05:47:35,180 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculating overall data quality score from 6 results
+2025-12-05 05:47:35,180 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculated overall score: 0.993
+2025-12-05 05:47:35,180 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Initial data quality score: 99.33% (A+)
+2025-12-05 05:47:35,180 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 2: Rectifying data quality issues
+2025-12-05 05:47:35,180 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Rectifying dataset based on analysis results
+2025-12-05 05:47:35,180 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 3: Re-analyzing data quality after rectification
+2025-12-05 05:47:35,180 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Analyzing data quality with 6 agents
+2025-12-05 05:47:35,180 INFO  [com.dat.age.ConsistencyAgent] (pool-6-thread-6) Analyzing consistency for dataset: sample-data.xlsx
+2025-12-05 05:47:35,180 INFO  [com.dat.age.OutliersAgent] (pool-6-thread-5) Analyzing outliers for dataset: sample-data.xlsx
+2025-12-05 05:47:35,181 INFO  [com.dat.age.CompletenessAgent] (pool-6-thread-4) Analyzing completeness for dataset: sample-data.xlsx
+2025-12-05 05:47:35,181 INFO  [com.dat.age.BlanksAgent] (pool-6-thread-1) Analyzing blanks for dataset: sample-data.xlsx
+2025-12-05 05:47:35,183 INFO  [com.dat.age.ValidityAgent] (pool-6-thread-2) Analyzing validity for dataset: sample-data.xlsx
+2025-12-05 05:47:35,181 INFO  [com.dat.age.UniquenessAgent] (pool-6-thread-3) Analyzing uniqueness for dataset: sample-data.xlsx
+2025-12-05 05:47:35,183 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculating overall data quality score from 6 results
+2025-12-05 05:47:35,183 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculated overall score: 0.993
+2025-12-05 05:47:35,183 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Final data quality score: 99.33% (A+)
+2025-12-05 05:47:35,183 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 4: Generating AI-powered summary
+2025-12-05 05:47:35,184 INFO  [com.dat.ser.GeminiService] (executor-thread-1) Generating data quality summary using Gemini for report: 738c8df4-b0fc-49cc-9ccc-905ff3de6963
+2025-12-05 05:47:35,226 ERROR [com.dat.ser.GeminiService] (executor-thread-1) Failed to generate summary using Gemini: java.lang.RuntimeException: Gemini API call failed with status: 400
+	at com.dataquality.services.GeminiService.callGeminiAPI(GeminiService.java:109)
+	at com.dataquality.services.GeminiService.generateDataQualitySummary(GeminiService.java:50)
+	at com.dataquality.services.GeminiService_ClientProxy.generateDataQualitySummary(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.processDataset(DataQualityOrchestrator.java:113)
+	at com.dataquality.orchestration.DataQualityOrchestrator_ClientProxy.processDataset(Unknown Source)
+	at com.dataquality.resources.SharePointResource.analyzeSharePointFile(SharePointResource.java:113)
+	at com.dataquality.resources.SharePointResource$quarkusrestinvoker$analyzeSharePointFile_3f98becc924e89172ae0533a5a7b0f403486fbde.invoke(Unknown Source)
+	at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+	at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+	at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+	at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:47:35,226 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Data quality processing completed in 49 ms
+2025-12-05 05:47:35,226 INFO  [com.dat.res.SharePointResource] (executor-thread-1) Successfully analyzed SharePoint file: sample-data.xlsx
+2025-12-05 05:55:00,333 INFO  [com.dat.res.SharePointResource] (executor-thread-1) Listing available files in SharePoint
+2025-12-05 05:55:00,334 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Listing available files in SharePoint
+2025-12-05 05:55:00,339 INFO  [com.dat.res.SharePointResource] (executor-thread-1) Analyzing SharePoint file: sample-data.xlsx
+2025-12-05 05:55:00,339 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Fetching file from SharePoint: sample-data.xlsx
+2025-12-05 05:55:00,339 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Downloading file content from SharePoint
+2025-12-05 05:55:00,355 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Converting Excel file to dataset: sample-data.xlsx
+2025-12-05 05:55:00,369 INFO  [com.dat.ser.SharePointService] (executor-thread-1) Successfully converted SharePoint file to dataset: sample-data.xlsx
+2025-12-05 05:55:00,370 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Starting data quality processing for dataset: sample-data.xlsx
+2025-12-05 05:55:00,370 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 1: Analyzing initial data quality
+2025-12-05 05:55:00,370 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Analyzing data quality with 6 agents
+2025-12-05 05:55:00,370 INFO  [com.dat.age.CompletenessAgent] (pool-6-thread-7) Analyzing completeness for dataset: sample-data.xlsx
+2025-12-05 05:55:00,370 INFO  [com.dat.age.UniquenessAgent] (pool-6-thread-8) Analyzing uniqueness for dataset: sample-data.xlsx
+2025-12-05 05:55:00,371 INFO  [com.dat.age.OutliersAgent] (pool-6-thread-8) Analyzing outliers for dataset: sample-data.xlsx
+2025-12-05 05:55:00,371 INFO  [com.dat.age.ValidityAgent] (pool-6-thread-9) Analyzing validity for dataset: sample-data.xlsx
+2025-12-05 05:55:00,371 INFO  [com.dat.age.ConsistencyAgent] (pool-6-thread-7) Analyzing consistency for dataset: sample-data.xlsx
+2025-12-05 05:55:00,371 INFO  [com.dat.age.BlanksAgent] (pool-6-thread-10) Analyzing blanks for dataset: sample-data.xlsx
+2025-12-05 05:55:00,372 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculating overall data quality score from 6 results
+2025-12-05 05:55:00,372 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculated overall score: 0.993
+2025-12-05 05:55:00,372 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Initial data quality score: 99.33% (A+)
+2025-12-05 05:55:00,372 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 2: Rectifying data quality issues
+2025-12-05 05:55:00,372 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Rectifying dataset based on analysis results
+2025-12-05 05:55:00,372 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 3: Re-analyzing data quality after rectification
+2025-12-05 05:55:00,372 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Analyzing data quality with 6 agents
+2025-12-05 05:55:00,373 INFO  [com.dat.age.CompletenessAgent] (pool-6-thread-7) Analyzing completeness for dataset: sample-data.xlsx
+2025-12-05 05:55:00,373 INFO  [com.dat.age.ValidityAgent] (pool-6-thread-9) Analyzing validity for dataset: sample-data.xlsx
+2025-12-05 05:55:00,373 INFO  [com.dat.age.BlanksAgent] (pool-6-thread-7) Analyzing blanks for dataset: sample-data.xlsx
+2025-12-05 05:55:00,373 INFO  [com.dat.age.ConsistencyAgent] (pool-6-thread-11) Analyzing consistency for dataset: sample-data.xlsx
+2025-12-05 05:55:00,373 INFO  [com.dat.age.UniquenessAgent] (pool-6-thread-10) Analyzing uniqueness for dataset: sample-data.xlsx
+2025-12-05 05:55:00,373 INFO  [com.dat.age.OutliersAgent] (pool-6-thread-8) Analyzing outliers for dataset: sample-data.xlsx
+2025-12-05 05:55:00,374 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculating overall data quality score from 6 results
+2025-12-05 05:55:00,374 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculated overall score: 0.993
+2025-12-05 05:55:00,374 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Final data quality score: 99.33% (A+)
+2025-12-05 05:55:00,374 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 4: Generating AI-powered summary
+2025-12-05 05:55:00,375 INFO  [com.dat.ser.GeminiService] (executor-thread-1) Generating data quality summary using Gemini for report: 23faa4a0-58f8-4902-a3a4-2d4ca4bd6453
+2025-12-05 05:55:00,432 ERROR [com.dat.ser.GeminiService] (executor-thread-1) Failed to generate summary using Gemini: java.lang.RuntimeException: Gemini API call failed with status: 400
+	at com.dataquality.services.GeminiService.callGeminiAPI(GeminiService.java:109)
+	at com.dataquality.services.GeminiService.generateDataQualitySummary(GeminiService.java:50)
+	at com.dataquality.services.GeminiService_ClientProxy.generateDataQualitySummary(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.processDataset(DataQualityOrchestrator.java:113)
+	at com.dataquality.orchestration.DataQualityOrchestrator_ClientProxy.processDataset(Unknown Source)
+	at com.dataquality.resources.SharePointResource.analyzeSharePointFile(SharePointResource.java:113)
+	at com.dataquality.resources.SharePointResource$quarkusrestinvoker$analyzeSharePointFile_3f98becc924e89172ae0533a5a7b0f403486fbde.invoke(Unknown Source)
+	at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+	at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+	at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+	at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,433 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Data quality processing completed in 63 ms
+2025-12-05 05:55:00,433 INFO  [com.dat.res.SharePointResource] (executor-thread-1) Successfully analyzed SharePoint file: sample-data.xlsx
+2025-12-05 05:55:00,469 INFO  [com.dat.res.DataQualityResource] (executor-thread-1) Received data quality analysis request for dataset: null
+2025-12-05 05:55:00,469 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Starting data quality processing for dataset: null
+2025-12-05 05:55:00,469 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 1: Analyzing initial data quality
+2025-12-05 05:55:00,469 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Analyzing data quality with 6 agents
+2025-12-05 05:55:00,469 INFO  [com.dat.age.CompletenessAgent] (pool-6-thread-11) Analyzing completeness for dataset: null
+2025-12-05 05:55:00,469 INFO  [com.dat.age.OutliersAgent] (pool-6-thread-7) Analyzing outliers for dataset: null
+2025-12-05 05:55:00,470 INFO  [com.dat.age.ValidityAgent] (pool-6-thread-10) Analyzing validity for dataset: null
+2025-12-05 05:55:00,470 INFO  [com.dat.age.ConsistencyAgent] (pool-6-thread-9) Analyzing consistency for dataset: null
+2025-12-05 05:55:00,470 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-11) Agent CompletenessAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.CompletenessAgent.analyze(CompletenessAgent.java:37)
+	at com.dataquality.agents.CompletenessAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,470 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-10) Agent ValidityAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.ValidityAgent.analyze(ValidityAgent.java:43)
+	at com.dataquality.agents.ValidityAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,470 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-9) Agent ConsistencyAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.ConsistencyAgent.analyze(ConsistencyAgent.java:35)
+	at com.dataquality.agents.ConsistencyAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,470 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-7) Agent OutliersAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.OutliersAgent.analyze(OutliersAgent.java:37)
+	at com.dataquality.agents.OutliersAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,470 INFO  [com.dat.age.BlanksAgent] (pool-6-thread-12) Analyzing blanks for dataset: null
+2025-12-05 05:55:00,470 INFO  [com.dat.age.UniquenessAgent] (pool-6-thread-8) Analyzing uniqueness for dataset: null
+2025-12-05 05:55:00,471 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-12) Agent BlanksAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.BlanksAgent.analyze(BlanksAgent.java:35)
+	at com.dataquality.agents.BlanksAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,471 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-8) Agent UniquenessAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.UniquenessAgent.analyze(UniquenessAgent.java:36)
+	at com.dataquality.agents.UniquenessAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,471 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculating overall data quality score from 6 results
+2025-12-05 05:55:00,471 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculated overall score: 0.000
+2025-12-05 05:55:00,471 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Initial data quality score: 0.00% (F)
+2025-12-05 05:55:00,471 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 2: Rectifying data quality issues
+2025-12-05 05:55:00,472 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Rectifying dataset based on analysis results
+2025-12-05 05:55:00,472 INFO  [com.dat.age.CompletenessAgent] (executor-thread-1) Rectifying completeness issues for dataset: null
+2025-12-05 05:55:00,472 INFO  [com.dat.age.UniquenessAgent] (executor-thread-1) Rectifying uniqueness issues for dataset: null
+2025-12-05 05:55:00,472 INFO  [com.dat.age.ValidityAgent] (executor-thread-1) Rectifying validity issues for dataset: null
+2025-12-05 05:55:00,472 ERROR [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Rectification failed for metric: Validity: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.ValidityAgent.rectify(ValidityAgent.java:96)
+	at com.dataquality.agents.ValidityAgent_ClientProxy.rectify(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.rectifyDataset(DataQualityOrchestrator.java:161)
+	at com.dataquality.orchestration.DataQualityOrchestrator.processDataset(DataQualityOrchestrator.java:97)
+	at com.dataquality.orchestration.DataQualityOrchestrator_ClientProxy.processDataset(Unknown Source)
+	at com.dataquality.resources.DataQualityResource.analyzeDataset(DataQualityResource.java:54)
+	at com.dataquality.resources.DataQualityResource$quarkusrestinvoker$analyzeDataset_b7f301a3b0abd17845e22017651ab301f97a7946.invoke(Unknown Source)
+	at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+	at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+	at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+	at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,473 INFO  [com.dat.age.OutliersAgent] (executor-thread-1) Rectifying outliers for dataset: null
+2025-12-05 05:55:00,473 INFO  [com.dat.age.ConsistencyAgent] (executor-thread-1) Rectifying consistency issues for dataset: null
+2025-12-05 05:55:00,473 ERROR [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Rectification failed for metric: Consistency: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.ConsistencyAgent.rectify(ConsistencyAgent.java:65)
+	at com.dataquality.agents.ConsistencyAgent_ClientProxy.rectify(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.rectifyDataset(DataQualityOrchestrator.java:161)
+	at com.dataquality.orchestration.DataQualityOrchestrator.processDataset(DataQualityOrchestrator.java:97)
+	at com.dataquality.orchestration.DataQualityOrchestrator_ClientProxy.processDataset(Unknown Source)
+	at com.dataquality.resources.DataQualityResource.analyzeDataset(DataQualityResource.java:54)
+	at com.dataquality.resources.DataQualityResource$quarkusrestinvoker$analyzeDataset_b7f301a3b0abd17845e22017651ab301f97a7946.invoke(Unknown Source)
+	at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+	at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+	at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+	at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,473 INFO  [com.dat.age.BlanksAgent] (executor-thread-1) Rectifying blank values for dataset: null
+2025-12-05 05:55:00,473 ERROR [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Rectification failed for metric: Blanks: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.BlanksAgent.rectify(BlanksAgent.java:77)
+	at com.dataquality.agents.BlanksAgent_ClientProxy.rectify(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.rectifyDataset(DataQualityOrchestrator.java:161)
+	at com.dataquality.orchestration.DataQualityOrchestrator.processDataset(DataQualityOrchestrator.java:97)
+	at com.dataquality.orchestration.DataQualityOrchestrator_ClientProxy.processDataset(Unknown Source)
+	at com.dataquality.resources.DataQualityResource.analyzeDataset(DataQualityResource.java:54)
+	at com.dataquality.resources.DataQualityResource$quarkusrestinvoker$analyzeDataset_b7f301a3b0abd17845e22017651ab301f97a7946.invoke(Unknown Source)
+	at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+	at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+	at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+	at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,473 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 3: Re-analyzing data quality after rectification
+2025-12-05 05:55:00,473 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Analyzing data quality with 6 agents
+2025-12-05 05:55:00,474 INFO  [com.dat.age.ConsistencyAgent] (pool-6-thread-10) Analyzing consistency for dataset: null
+2025-12-05 05:55:00,474 INFO  [com.dat.age.CompletenessAgent] (pool-6-thread-8) Analyzing completeness for dataset: null
+2025-12-05 05:55:00,474 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-10) Agent ConsistencyAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.ConsistencyAgent.analyze(ConsistencyAgent.java:35)
+	at com.dataquality.agents.ConsistencyAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,474 INFO  [com.dat.age.ValidityAgent] (pool-6-thread-7) Analyzing validity for dataset: null
+2025-12-05 05:55:00,474 INFO  [com.dat.age.OutliersAgent] (pool-6-thread-9) Analyzing outliers for dataset: null
+2025-12-05 05:55:00,474 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-7) Agent ValidityAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.ValidityAgent.analyze(ValidityAgent.java:43)
+	at com.dataquality.agents.ValidityAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,474 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-9) Agent OutliersAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.OutliersAgent.analyze(OutliersAgent.java:37)
+	at com.dataquality.agents.OutliersAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,474 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-8) Agent CompletenessAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.CompletenessAgent.analyze(CompletenessAgent.java:37)
+	at com.dataquality.agents.CompletenessAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,474 INFO  [com.dat.age.UniquenessAgent] (pool-6-thread-12) Analyzing uniqueness for dataset: null
+2025-12-05 05:55:00,474 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-12) Agent UniquenessAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.UniquenessAgent.analyze(UniquenessAgent.java:36)
+	at com.dataquality.agents.UniquenessAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,474 INFO  [com.dat.age.BlanksAgent] (pool-6-thread-9) Analyzing blanks for dataset: null
+2025-12-05 05:55:00,475 ERROR [com.dat.orc.DataQualityOrchestrator] (pool-6-thread-9) Agent BlanksAgent failed: java.lang.NullPointerException: Cannot invoke "java.util.List.iterator()" because the return value of "com.dataquality.models.Dataset.getColumns()" is null
+	at com.dataquality.agents.BlanksAgent.analyze(BlanksAgent.java:35)
+	at com.dataquality.agents.BlanksAgent_ClientProxy.analyze(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.lambda$analyzeDataQuality$0(DataQualityOrchestrator.java:136)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,475 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculating overall data quality score from 6 results
+2025-12-05 05:55:00,475 INFO  [com.dat.age.ScoringAgent] (executor-thread-1) Calculated overall score: 0.000
+2025-12-05 05:55:00,475 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Final data quality score: 0.00% (F)
+2025-12-05 05:55:00,475 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Step 4: Generating AI-powered summary
+2025-12-05 05:55:00,475 INFO  [com.dat.ser.GeminiService] (executor-thread-1) Generating data quality summary using Gemini for report: 036d678d-1eb3-4b57-8dcb-32aa3b23c87f
+2025-12-05 05:55:00,496 ERROR [com.dat.ser.GeminiService] (executor-thread-1) Failed to generate summary using Gemini: java.lang.RuntimeException: Gemini API call failed with status: 400
+	at com.dataquality.services.GeminiService.callGeminiAPI(GeminiService.java:109)
+	at com.dataquality.services.GeminiService.generateDataQualitySummary(GeminiService.java:50)
+	at com.dataquality.services.GeminiService_ClientProxy.generateDataQualitySummary(Unknown Source)
+	at com.dataquality.orchestration.DataQualityOrchestrator.processDataset(DataQualityOrchestrator.java:113)
+	at com.dataquality.orchestration.DataQualityOrchestrator_ClientProxy.processDataset(Unknown Source)
+	at com.dataquality.resources.DataQualityResource.analyzeDataset(DataQualityResource.java:54)
+	at com.dataquality.resources.DataQualityResource$quarkusrestinvoker$analyzeDataset_b7f301a3b0abd17845e22017651ab301f97a7946.invoke(Unknown Source)
+	at org.jboss.resteasy.reactive.server.handlers.InvocationHandler.handle(InvocationHandler.java:29)
+	at io.quarkus.resteasy.reactive.server.runtime.QuarkusResteasyReactiveRequestContext.invokeHandler(QuarkusResteasyReactiveRequestContext.java:141)
+	at org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext.run(AbstractResteasyReactiveContext.java:147)
+	at io.quarkus.vertx.core.runtime.VertxCoreRecorder$14.runWith(VertxCoreRecorder.java:582)
+	at org.jboss.threads.EnhancedQueueExecutor$Task.run(EnhancedQueueExecutor.java:2513)
+	at org.jboss.threads.EnhancedQueueExecutor$ThreadBody.run(EnhancedQueueExecutor.java:1538)
+	at org.jboss.threads.DelegatingRunnable.run(DelegatingRunnable.java:29)
+	at org.jboss.threads.ThreadLocalResettingRunnable.run(ThreadLocalResettingRunnable.java:29)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+
+2025-12-05 05:55:00,497 INFO  [com.dat.orc.DataQualityOrchestrator] (executor-thread-1) Data quality processing completed in 28 ms

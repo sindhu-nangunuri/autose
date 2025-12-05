@@ -1,6 +1,18 @@
-import { ApiResponse, Job, DashboardMetrics, ValidationRule } from '../types';
+import { 
+  ApiResponse, 
+  Job, 
+  DashboardMetrics, 
+  ValidationRule,
+  Dataset,
+  DataQualityReport,
+  DataQualityScore,
+  DataQualityResult,
+  SharePointFile,
+  SharePointConfig,
+  DataQualityMetric
+} from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081/api';
 
 class ApiClient {
   private baseURL: string;
@@ -140,6 +152,103 @@ class ApiClient {
     return this.request<void>(`/validation-rules/${id}`, {
       method: 'DELETE',
     });
+  }
+
+  // Data Quality APIs
+  async analyzeDataset(dataset: Dataset): Promise<DataQualityReport> {
+    const response = await this.request<DataQualityReport>('/data-quality/analyze', {
+      method: 'POST',
+      body: JSON.stringify(dataset),
+    });
+    return response.data || response as any;
+  }
+
+  async calculateScore(dataset: Dataset): Promise<DataQualityScore> {
+    const response = await this.request<DataQualityScore>('/data-quality/score', {
+      method: 'POST',
+      body: JSON.stringify(dataset),
+    });
+    return response.data || response as any;
+  }
+
+  async analyzeOnly(dataset: Dataset): Promise<{ results: DataQualityResult[]; score: DataQualityScore }> {
+    const response = await this.request<{ results: DataQualityResult[]; score: DataQualityScore }>('/data-quality/analyze-only', {
+      method: 'POST',
+      body: JSON.stringify(dataset),
+    });
+    return response.data || response as any;
+  }
+
+  async getRecommendations(results: DataQualityResult[]): Promise<{ recommendations: string[] }> {
+    const response = await this.request<{ recommendations: string[] }>('/data-quality/recommendations', {
+      method: 'POST',
+      body: JSON.stringify(results),
+    });
+    return response.data || response as any;
+  }
+
+  async getAvailableMetrics(): Promise<{ metrics: DataQualityMetric[]; descriptions: Record<string, string> }> {
+    const response = await this.request<{ metrics: DataQualityMetric[]; descriptions: Record<string, string> }>('/data-quality/metrics');
+    return response.data || response as any;
+  }
+
+  async generateSampleDataset(): Promise<Dataset> {
+    const response = await this.request<Dataset>('/data-quality/sample-dataset', {
+      method: 'POST',
+    });
+    return response.data || response as any;
+  }
+
+  async getDataQualityHealth(): Promise<any> {
+    const response = await this.request<any>('/data-quality/health');
+    return response.data || response as any;
+  }
+
+  // SharePoint APIs
+  async listSharePointFiles(): Promise<{ files: string[]; count: number; timestamp: number }> {
+    const response = await this.request<{ files: string[]; count: number; timestamp: number }>('/sharepoint/files');
+    return response.data || response as any;
+  }
+
+  async fetchSharePointFile(fileName: string): Promise<Dataset> {
+    const response = await this.request<Dataset>(`/sharepoint/files/${encodeURIComponent(fileName)}`);
+    return response.data || response as any;
+  }
+
+  async analyzeSharePointFile(fileName: string): Promise<DataQualityReport> {
+    const response = await this.request<DataQualityReport>(`/sharepoint/analyze/${encodeURIComponent(fileName)}`, {
+      method: 'POST',
+    });
+    return response.data || response as any;
+  }
+
+  async analyzeSharePointFileOnly(fileName: string): Promise<{
+    results: DataQualityResult[];
+    score: DataQualityScore;
+    dataset: Dataset;
+    sourceType: string;
+    originalFileName: string;
+  }> {
+    const response = await this.request<{
+      results: DataQualityResult[];
+      score: DataQualityScore;
+      dataset: Dataset;
+      sourceType: string;
+      originalFileName: string;
+    }>(`/sharepoint/analyze-only/${encodeURIComponent(fileName)}`, {
+      method: 'POST',
+    });
+    return response.data || response as any;
+  }
+
+  async getSharePointConfig(): Promise<SharePointConfig> {
+    const response = await this.request<SharePointConfig>('/sharepoint/config');
+    return response.data || response as any;
+  }
+
+  async getSharePointHealth(): Promise<any> {
+    const response = await this.request<any>('/sharepoint/health');
+    return response.data || response as any;
   }
 
   // System APIs

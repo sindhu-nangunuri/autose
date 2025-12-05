@@ -1,0 +1,8 @@
+com/dataquality/agents/ScoringAgentTest.class
+com/dataquality/resources/DataQualityResourceIntegrationTest.class
+com/dataquality/services/GeminiServiceTest.class
+com/dataquality/models/DataQualityScoreTest.class
+com/dataquality/models/DatasetTest.class
+com/dataquality/DataQualityResourceTest.class
+com/dataquality/models/DataQualityResultTest.class
+com/dataquality/agents/CompletenessAgentTest.class
