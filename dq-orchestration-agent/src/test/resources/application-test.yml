@@ -1,0 +1,59 @@
+quarkus:
+  application:
+    name: dq-orchestration-agent-test
+  http:
+    port: 8081
+    test-port: 8081
+  log:
+    level: INFO
+    category:
+      "com.dataquality": DEBUG
+      "io.quarkus": WARN
+      "org.jboss": WARN
+
+# Test Data Quality Configuration
+data-quality:
+  gemini:
+    api-key: test-api-key
+    model: gemini-pro
+    temperature: 0.1
+    max-tokens: 1000
+    enabled: false # Disable for tests to avoid API calls
+  
+  thresholds:
+    completeness: 0.95
+    uniqueness: 0.98
+    consistency: 0.90
+    validity: 0.95
+    accuracy: 0.90
+    integrity: 0.95
+    timeliness: 0.85
+    conformity: 0.90
+    range: 0.95
+    blanks: 0.05
+    outliers: 0.10
+  
+  processing:
+    max-concurrent-workers: 2 # Reduced for tests
+    timeout-seconds: 30 # Reduced for tests
+    batch-size: 100 # Reduced for tests
+    
+  scoring:
+    weights:
+      completeness: 0.15
+      uniqueness: 0.15
+      consistency: 0.10
+      validity: 0.15
+      accuracy: 0.15
+      integrity: 0.10
+      timeliness: 0.05
+      conformity: 0.05
+      range: 0.05
+      blanks: 0.03
+      outliers: 0.02
+
+# Test-specific configurations
+test:
+  mock-gemini: true
+  fast-mode: true
+  skip-ai-analysis: true

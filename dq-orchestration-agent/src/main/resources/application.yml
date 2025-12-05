@@ -1,0 +1,72 @@
+quarkus:
+  application:
+    name: dq-orchestration-agent
+  http:
+    port: 8081
+    host: 0.0.0.0
+    cors:
+      ~: true
+      origins: "*"
+      headers: "*"
+      methods: "*"
+  log:
+    level: INFO
+    category:
+      "com.dataquality": DEBUG
+  swagger-ui:
+    always-include: true
+    path: /swagger-ui
+
+# Data Quality Configuration
+data-quality:
+  gemini:
+    api-key: ${GEMINI_API_KEY:AIzaSyD1xiXLGQqKQq2-qX-RPVi_in98VJ75jno}
+    model: gemini-pro
+    temperature: 0.1
+    max-tokens: 1000
+  
+  thresholds:
+    completeness: 0.95
+    uniqueness: 0.98
+    consistency: 0.90
+    validity: 0.95
+    accuracy: 0.90
+    integrity: 0.95
+    timeliness: 0.85
+    conformity: 0.90
+    range: 0.95
+    blanks: 0.05
+    outliers: 0.10
+  
+  processing:
+    max-concurrent-workers: 5
+    timeout-seconds: 300
+    batch-size: 1000
+    
+  scoring:
+    weights:
+      completeness: 0.15
+      uniqueness: 0.15
+      consistency: 0.10
+      validity: 0.15
+      accuracy: 0.15
+      integrity: 0.10
+      timeliness: 0.05
+      conformity: 0.05
+      range: 0.05
+      blanks: 0.03
+      outliers: 0.02
+
+# SharePoint Configuration
+sharepoint:
+  tenant-id: ${SHAREPOINT_TENANT_ID:your-tenant-id}
+  client-id: ${SHAREPOINT_CLIENT_ID:your-client-id}
+  client-secret: ${SHAREPOINT_CLIENT_SECRET:your-client-secret}
+  site-url: ${SHAREPOINT_SITE_URL:https://yourtenant.sharepoint.com/sites/yoursite}
+  document-library: ${SHAREPOINT_DOCUMENT_LIBRARY:Documents}
+  auth:
+    scope: https://graph.microsoft.com/.default
+    authority: https://login.microsoftonline.com/
+  file:
+    supported-formats: xlsx,xls,csv,json
+    max-size-mb: 50
