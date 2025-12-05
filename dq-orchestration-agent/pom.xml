@@ -117,6 +117,36 @@
     <artifactId>jaxb-runtime</artifactId>
     <version>2.3.1</version>
 </dependency>
+
+    <!-- SharePoint and Office 365 integration -->
+    <dependency>
+      <groupId>com.microsoft.graph</groupId>
+      <artifactId>microsoft-graph</artifactId>
+      <version>5.74.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.graph</groupId>
+      <artifactId>microsoft-graph-auth</artifactId>
+      <version>0.4.0</version>
+    </dependency>
+    
+    <!-- Apache POI for Excel file processing -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>5.2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>5.2.4</version>
+    </dependency>
+    
+    <!-- HTTP client for SharePoint REST API -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-client-reactive-jackson</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

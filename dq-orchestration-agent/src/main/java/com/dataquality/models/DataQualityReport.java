@@ -33,6 +33,9 @@ public class DataQualityReport {
     
     @JsonProperty("processingTimeMs")
     private long processingTimeMs;
+    
+    @JsonProperty("metadata")
+    private Map<String, Object> metadata;
 
     public DataQualityReport() {
         this.timestamp = LocalDateTime.now();
@@ -115,5 +118,13 @@ public class DataQualityReport {
 
     public void setProcessingTimeMs(long processingTimeMs) {
         this.processingTimeMs = processingTimeMs;
+    }
+    
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+    
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
     }
 }

@@ -56,3 +56,17 @@ data-quality:
       range: 0.05
       blanks: 0.03
       outliers: 0.02
+
+# SharePoint Configuration
+sharepoint:
+  tenant-id: ${SHAREPOINT_TENANT_ID:your-tenant-id}
+  client-id: ${SHAREPOINT_CLIENT_ID:your-client-id}
+  client-secret: ${SHAREPOINT_CLIENT_SECRET:your-client-secret}
+  site-url: ${SHAREPOINT_SITE_URL:https://yourtenant.sharepoint.com/sites/yoursite}
+  document-library: ${SHAREPOINT_DOCUMENT_LIBRARY:Documents}
+  auth:
+    scope: https://graph.microsoft.com/.default
+    authority: https://login.microsoftonline.com/
+  file:
+    supported-formats: xlsx,xls,csv,json
+    max-size-mb: 50
