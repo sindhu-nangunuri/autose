@@ -117,7 +117,7 @@ const DataQualityAnalysis: React.FC = () => {
       setTabValue(1); // Switch to results tab
     } catch (err) {
       console.error('Error generating sample data:', err);
-      setError('Failed to generate sample data');
+      setError('Failed to generate sample data: ' + (err as Error).message);
     } finally {
       setLoading(false);
     }
@@ -181,7 +181,7 @@ const DataQualityAnalysis: React.FC = () => {
     if (!report?.results) return null;
 
     const chartData = report.results.map(result => ({
-      name: result.metric.displayName || result.metric.name,
+      name: typeof result.metric === 'string' ? result.metric : (result.metric.displayName || result.metric.name),
       score: result.score * 100,
       threshold: result.threshold * 100,
       passed: result.passed,
@@ -220,7 +220,7 @@ const DataQualityAnalysis: React.FC = () => {
             {report.results.map((result, index) => (
               <TableRow key={index}>
                 <TableCell component="th" scope="row">
-                  {result.metric.displayName || result.metric.name}
+                  {typeof result.metric === 'string' ? result.metric : (result.metric.displayName || result.metric.name)}
                 </TableCell>
                 <TableCell align="right">
                   <Typography color={getScoreColor(result.score)}>

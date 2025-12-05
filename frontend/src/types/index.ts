@@ -23,21 +23,20 @@ export interface DataQualityMetric {
 }
 
 export interface DataQualityResult {
-  metric: DataQualityMetric;
+  metric: string | DataQualityMetric;
   score: number;
   threshold: number;
   passed: boolean;
   issues: string[];
   recommendations: string[];
   details: Record<string, any>;
+  timestamp: string;
 }
 
 export interface DataQualityScore {
   overallScore: number;
   grade: string;
   metricScores: Record<string, number>;
-  weights: Record<string, number>;
-  calculatedAt: string;
 }
 
 export interface DataQualityReport {
