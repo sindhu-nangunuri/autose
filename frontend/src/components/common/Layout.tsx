@@ -22,6 +22,7 @@ import {
   Monitor as MonitoringIcon,
   Settings as SettingsIcon,
   ChevronLeft as ChevronLeftIcon,
+  Assessment as AssessmentIcon,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -32,7 +33,8 @@ interface LayoutProps {
 }
 
 const menuItems = [
-  { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
+  { text: 'Data Quality Analysis', icon: <AssessmentIcon />, path: '/' },
+  { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
   { text: 'Orchestration', icon: <PlayArrowIcon />, path: '/orchestration' },
   { text: 'Monitoring', icon: <MonitoringIcon />, path: '/monitoring' },
   { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
