@@ -1,0 +1,8 @@
+/workspace/project/autose/dq-orchestration-agent/src/test/java/com/dataquality/resources/DataQualityResourceIntegrationTest.java
+/workspace/project/autose/dq-orchestration-agent/src/test/java/com/dataquality/models/DataQualityResultTest.java
+/workspace/project/autose/dq-orchestration-agent/src/test/java/com/dataquality/DataQualityResourceTest.java
+/workspace/project/autose/dq-orchestration-agent/src/test/java/com/dataquality/services/GeminiServiceTest.java
+/workspace/project/autose/dq-orchestration-agent/src/test/java/com/dataquality/agents/CompletenessAgentTest.java
+/workspace/project/autose/dq-orchestration-agent/src/test/java/com/dataquality/agents/ScoringAgentTest.java
+/workspace/project/autose/dq-orchestration-agent/src/test/java/com/dataquality/models/DataQualityScoreTest.java
+/workspace/project/autose/dq-orchestration-agent/src/test/java/com/dataquality/models/DatasetTest.java
