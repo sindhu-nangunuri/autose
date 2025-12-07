@@ -72,6 +72,9 @@ const DataQualityAnalysis: React.FC = () => {
   const [report, setReport] = useState<DataQualityReport | null>(null);
   const [selectedFile, setSelectedFile] = useState<string>('');
   const [userPrompt, setUserPrompt] = useState<string>('');
+  const [aiResponse, setAiResponse] = useState<any>(null);
+  const [availableFiles, setAvailableFiles] = useState<string[]>([]);
+  const [recommendations, setRecommendations] = useState<string[]>([]);
 
   const handleSubmitPrompt = async () => {
     if (!userPrompt.trim()) {
@@ -81,19 +84,34 @@ const DataQualityAnalysis: React.FC = () => {
 
     setLoading(true);
     setError(null);
+    setAiResponse(null);
+    
     try {
       console.log('Processing user prompt:', userPrompt);
       
-      // Send the prompt to the backend AI service
+      // Send the prompt to the backend AI service with Google ADK Agent
       const promptResponse = await apiClient.processPrompt(userPrompt.trim());
       
-      // For now, we'll display the AI response in the console and show a success message
-      console.log('AI Response:', promptResponse.response);
+      console.log('AI Response:', promptResponse);
       
-      // You can extend this to display the AI response in the UI
-      // For example, you could add a new state for AI responses and display them
+      // Handle different response types
+      setAiResponse(promptResponse);
+      
+      if (promptResponse.type === 'sharepoint_analysis') {
+        // SharePoint file analysis response
+        setDataset(promptResponse.dataset);
+        setReport(promptResponse.report);
+        setSelectedFile(promptResponse.fileName);
+        setRecommendations(promptResponse.recommendations || []);
+        
+        // Switch to analysis results tab
+        setTabValue(1);
+      } else if (promptResponse.type === 'file_list') {
+        // Available files list response
+        setAvailableFiles(promptResponse.availableFiles || []);
+      }
+      
       setError(null);
-      alert(`AI Response: ${promptResponse.response}`); // Temporary way to show response
       
       // Clear the prompt after successful submission
       setUserPrompt('');
@@ -294,6 +312,88 @@ const DataQualityAnalysis: React.FC = () => {
                 </CardContent>
               </Card>
             </Grid>
+            
+            {/* AI Response Display */}
+            {aiResponse && (
+              <Grid item xs={12}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                      AI Response
+                    </Typography>
+                    
+                    {aiResponse.type === 'sharepoint_analysis' && (
+                      <Box>
+                        <Alert severity="success" sx={{ mb: 2 }}>
+                          Successfully analyzed SharePoint file: {aiResponse.fileName}
+                        </Alert>
+                        <Typography variant="body1" paragraph>
+                          {aiResponse.aiSummary}
+                        </Typography>
+                        {recommendations.length > 0 && (
+                          <Box mt={2}>
+                            <Typography variant="h6" gutterBottom>
+                              Recommendations
+                            </Typography>
+                            <List>
+                              {recommendations.map((rec, index) => (
+                                <ListItem key={index}>
+                                  <ListItemIcon>
+                                    <CheckCircleIcon color="primary" />
+                                  </ListItemIcon>
+                                  <ListItemText primary={rec} />
+                                </ListItem>
+                              ))}
+                            </List>
+                          </Box>
+                        )}
+                      </Box>
+                    )}
+                    
+                    {aiResponse.type === 'file_list' && (
+                      <Box>
+                        <Typography variant="body1" paragraph>
+                          {aiResponse.response}
+                        </Typography>
+                        {availableFiles.length > 0 && (
+                          <Box mt={2}>
+                            <Typography variant="h6" gutterBottom>
+                              Available SharePoint Files
+                            </Typography>
+                            <List>
+                              {availableFiles.map((file, index) => (
+                                <ListItem key={index}>
+                                  <ListItemIcon>
+                                    <DataObjectIcon color="primary" />
+                                  </ListItemIcon>
+                                  <ListItemText primary={file} />
+                                </ListItem>
+                              ))}
+                            </List>
+                          </Box>
+                        )}
+                      </Box>
+                    )}
+                    
+                    {aiResponse.type === 'general_response' && (
+                      <Typography variant="body1">
+                        {aiResponse.response}
+                      </Typography>
+                    )}
+                    
+                    {aiResponse.type === 'error' && (
+                      <Alert severity="error">
+                        {aiResponse.error}
+                      </Alert>
+                    )}
+                    
+                    <Typography variant="caption" color="text.secondary" sx={{ mt: 2, display: 'block' }}>
+                      Response generated at: {new Date(aiResponse.timestamp).toLocaleString()}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            )}
           </Grid>
         </TabPanel>
 

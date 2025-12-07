@@ -1,9 +1,11 @@
 package com.dataquality.services;
 
+import com.dataquality.agents.GoogleADKAgent;
 import com.dataquality.models.DataQualityReport;
 import com.dataquality.models.DataQualityResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
@@ -31,6 +33,12 @@ public class GeminiService {
     
     @ConfigProperty(name = "data-quality.gemini.max-tokens", defaultValue = "1000")
     int maxTokens;
+    
+    @ConfigProperty(name = "data-quality.google-adk.enabled", defaultValue = "true")
+    boolean googleADKEnabled;
+    
+    @Inject
+    GoogleADKAgent googleADKAgent;
     
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
@@ -88,6 +96,34 @@ public class GeminiService {
         } catch (Exception e) {
             logger.error("Failed to process user prompt using Gemini", e);
             return "I apologize, but I'm unable to process your request at this time. Please try again later or contact support if the issue persists.";
+        }
+    }
+    
+    public Map<String, Object> processUserPromptWithADK(String userPrompt) {
+        logger.info("Processing user prompt with Google ADK Agent: " + userPrompt.substring(0, Math.min(userPrompt.length(), 100)) + "...");
+        
+        try {
+            if (googleADKEnabled && googleADKAgent != null) {
+                return googleADKAgent.processPrompt(userPrompt);
+            } else {
+                // Fallback to regular Gemini processing
+                String response = processUserPrompt(userPrompt);
+                Map<String, Object> result = new java.util.HashMap<>();
+                result.put("type", "general_response");
+                result.put("status", "success");
+                result.put("response", response);
+                result.put("timestamp", System.currentTimeMillis());
+                result.put("originalPrompt", userPrompt);
+                return result;
+            }
+        } catch (Exception e) {
+            logger.error("Failed to process user prompt with ADK", e);
+            Map<String, Object> errorResult = new java.util.HashMap<>();
+            errorResult.put("type", "error");
+            errorResult.put("status", "error");
+            errorResult.put("error", "Failed to process request: " + e.getMessage());
+            errorResult.put("timestamp", System.currentTimeMillis());
+            return errorResult;
         }
     }
     

@@ -204,7 +204,7 @@ public class DataQualityResource {
     
     @POST
     @Path("/prompt")
-    @Operation(summary = "Process user prompt using AI assistant")
+    @Operation(summary = "Process user prompt using AI assistant with Google ADK Agent")
     @APIResponse(responseCode = "200", description = "Prompt processed successfully")
     @APIResponse(responseCode = "400", description = "Invalid prompt provided")
     @APIResponse(responseCode = "500", description = "Internal server error")
@@ -220,13 +220,10 @@ public class DataQualityResource {
             
             logger.info("Processing user prompt: " + prompt.substring(0, Math.min(prompt.length(), 100)) + "...");
             
-            String response = geminiService.processUserPrompt(prompt.trim());
+            // Use the enhanced ADK processing
+            Map<String, Object> result = geminiService.processUserPromptWithADK(prompt.trim());
             
-            return Response.ok(Map.of(
-                "response", response,
-                "timestamp", System.currentTimeMillis(),
-                "status", "success"
-            )).build();
+            return Response.ok(result).build();
             
         } catch (Exception e) {
             logger.error("Error processing user prompt", e);

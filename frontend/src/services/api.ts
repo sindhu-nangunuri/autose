@@ -203,8 +203,8 @@ class ApiClient {
     return response.data || response as any;
   }
 
-  async processPrompt(prompt: string): Promise<{ response: string; timestamp: number; status: string }> {
-    const response = await this.request<{ response: string; timestamp: number; status: string }>('/data-quality/prompt', {
+  async processPrompt(prompt: string): Promise<any> {
+    const response = await this.request<any>('/data-quality/prompt', {
       method: 'POST',
       body: JSON.stringify({ prompt }),
     });
