@@ -124,7 +124,9 @@ public class DataQualityAnalysisService {
         logger.info("Calculating data quality score for dataset: " + dataset.getName());
         
         try {
-            return scoringAgent.calculateScore(dataset);
+            // First analyze the dataset to get the results
+            List<DataQualityResult> results = analyzeDataQuality(dataset);
+            return scoringAgent.calculateScore(results);
         } catch (Exception e) {
             logger.error("Error calculating data quality score", e);
             throw new RuntimeException("Score calculation failed: " + e.getMessage(), e);

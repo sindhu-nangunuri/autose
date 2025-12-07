@@ -85,7 +85,7 @@ public class SharePointService {
             List<String> files = new ArrayList<>();
             
             // For now, return a mock list - you can implement actual SharePoint listing
-            files.add("sample-data.xlsx");
+            files.add("sample-data.csv");
             files.add("employee-data.csv");
             files.add("sales-data.json");
             
@@ -123,6 +123,16 @@ public class SharePointService {
     private byte[] createSampleFileContent(String fileName) {
         // Mock implementation - replace with actual file download
         logger.info("Downloading file content from SharePoint");
+        
+        // For demo purposes, if it's our sample CSV file, read the actual file
+        if ("sample-data.csv".equals(fileName)) {
+            try {
+                java.nio.file.Path filePath = java.nio.file.Paths.get("/workspace/project/autose/dq-orchestration-agent/sample-data.csv");
+                return java.nio.file.Files.readAllBytes(filePath);
+            } catch (Exception e) {
+                logger.warn("Could not read actual CSV file, falling back to sample data", e);
+            }
+        }
         
         // For demo purposes, return sample Excel data
         return createSampleExcelData();
